@@ -1,0 +1,63 @@
+I have started playing around with Swing and Java's GUI. So far I've learned how to open a basic GUI with JFrame and 
+add components with JFPanel, JLabel, and JButton.
+
+Imports :
+import java.awt.BorderLayout;
+import java.awt.Color;                    // for background color of pane
+//import java.awt.FlowLayout;
+import java.awt.GridBagLayout;            // flexible layout, have to learn how to properly arrange comp.
+import java.awt.GridBagConstraints;
+import java.awt.Insets;                   // exterior padding of comp.
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+What I learned :
+Create a class that extends JFrame
+In the constructor, assign the Title
+setTitle(String arg);
+or use super(String arg) which is JFrame's constructor that takes in a string and makes it the Title
+Make sure to set the size, visibility and the exit command
+setVisibility(boolean true);
+setSize(int width, int height);
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+Create the Panel that holds components
+JPanel pane = new JPanel(new GridBagLayout());
+pane.setBackground(Color );
+
+Initialize GridBagConstraints and Insets
+GridBagConstraints c = new GridBagConstraints();
+c.insets = new Insets(int up, int down, int left, int right) (pixels)
+
+Create the components
+JButton button = new JButton(String text);
+JLabel label = new JLabel(String text);
+
+Create an action for the button ( I am still learning this) 
+button.addActionListener(new ActionListener() {
+  public void actionPerformed(ActionEvent e) {
+    //do something
+  }
+});
+
+Add components to Panel
+c.gridx = <int row>
+c.gridy = <int col>
+pane.add(<Component>);
+Then change constraints before adding another comp.
+c.gridx = <int row>
+c.gridy = <int col>
+pane.add(<Component>, <Positioning> --> BorderLayout.(EAST, WEST, NORTH, SOUTH, etc));
+
+Finally adding Panel to the Frame (something I forgot when I first tried GUIs)
+add(pane);
+
+Soures :
+Dream in Code, SPlutard, Basic GUI Concepts - http://www.dreamincode.net/forums/topic/17705-basic-gui-concepts/
+Youtube, Creative Tuts - https://www.youtube.com/watch?v=mH1TltI61yU (Tutorials 11- 13)
+Oracle JavaDocs - JButton http://docs.oracle.com/javase/7/docs/api/javax/swing/JButton.html
+  JPanel - http://docs.oracle.com/javase/7/docs/api/javax/swing/JPanel.html
+  JFrame - http://docs.oracle.com/javase/7/docs/api/javax/swing/JFrame.html
+  JLabel - http://docs.oracle.com/javase/7/docs/api/javax/swing/JLabel.html
