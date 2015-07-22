@@ -1,0 +1,93 @@
+Today I finished learning how to construct GUIs from Oracle's demostration tutorial of programming a Celsius to Fahrenheit 
+Converter (http://docs.oracle.com/javase/tutorial/uiswing/learn/index.html). This tutorial used NetBeans IDE to construct a GUI
+and have automated code to aid in constructing a GUI but I constructed this manually with Eclipse.
+
+Main Learning Points :
+  JTextField
+  ActionListener
+  ActionEvent
+  GridBagLayout
+  Insets
+  
+Code :
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+public class CelsiusConverterGUI extends JFrame {
+	private static final int SIZE = 150;
+	private JPanel panel;
+	private JButton convert;
+	private JLabel celsius;
+	private JTextField input;
+	private JLabel fahrenheit;
+	
+	public CelsiusConverterGUI() {
+	
+		// Initializing the Frame
+		this.setTitle("Temperature Converter");
+		this.setSize(2 * SIZE, SIZE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// Panel
+		panel = new JPanel(new GridBagLayout());
+		this.add(panel);
+		panel.setBackground(Color.darkGray);
+		GridBagConstraints con = new GridBagConstraints();
+		con.insets = new Insets(10, 10, 10, 10);
+		
+		// Components
+		  // Labels
+		fahrenheit = new JLabel("Fahrenheit");
+		fahrenheit.setToolTipText("Please Enter a temperature in Celsius");
+		celsius = new JLabel("Celsius");
+			// Button	
+		convert = new JButton("Convert");
+		convert.setToolTipText("Enter temperature in Celsius to conver to Farenheit");
+		convert.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fahrenheit.setText(((int) (Double.parseDouble(input.getText()) * 1.8 + 32)) + " Fahrenheit");
+			}
+		});
+      // Text Field
+		input = new JTextField(6);
+
+		// Constructing GUI
+  		// Placing in quadrants
+		con.gridx = 1;
+		con.gridy = -1;
+		panel.add(input,con);
+		con.gridx = -1;
+		con.gridy = -1;
+		panel.add(celsius,con);
+		con.gridx = 1;
+		con.gridy = 1;
+		panel.add(convert,con);
+		con.gridx = -1;
+		con.gridy = 1;
+		panel.add(fahrenheit,con);
+		
+		this.setVisible(true);
+
+	}
+	
+	public static void main(String[] args) {
+		new CelciusConverterGUI();
+	}
+}
+
+After some debugging and reading on forums, I learned that I should setVisible "after adding components and calling pack()"
+(trashgod, StackOverFlow http://stackoverflow.com/questions/11069807/jpanel-doesnt-update-until-resize-jframe). I decided
+not to use pack() (although very useful) so I can rescale the frame to show the full title. I have still a ways to go learning 
+GUIs. I need to learn how to use DropLists and ComboBoxes for my Gym Project.
