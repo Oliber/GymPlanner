@@ -1,0 +1,39 @@
+I have learned the basics of JComboBoxes. There are the uneditable and the editable version which the latter has a text field
+which the user can quickly search through the list of options. Since my project does not have a long list of options(yet), I will 
+implement the uneditable version of JComboBoxes. Besides the default model, the comboBox can be customized when providing a custom 
+renderer for the uneditable version or a custom editor for the editable version. I learn more about that later.
+
+A comboBox is like any other component. Construct the object by passing an Array and configure the amount of rows, the starting
+index, the actionListener(that will update with every new selection).
+
+Import :
+
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+
+Code (incomplete) :
+
+public class ComboBoxExample extends JFrame implements ActionListener {
+  JFrame f;
+  
+public ComboBoxExample() {
+  JPanel pane = new JPanel(new GridBagLayout());
+  JComboBox list = new JComboBox({"Eggs", "Chicken", "Ham", "Bread"});
+  list.addActionListener(this);
+  pane.add(list);
+  f.add(pane);
+  f.setTitle("Food");
+  f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  f.setVisible(true);
+}
+
+public void actionPerformed(new ActionEvent e) {
+  // update to display currently selected item
+  // uses getSource() and getSelectedItem() from ActionEvent class
+}
+
+Another way I've noticed to implement a ComboBox is to write the classs extending JPanel, construct the panel with the
+ComboBox then add it to the frame in a seperate method.
+
+Refference :
+https://docs.oracle.com/javase/tutorial/uiswing/components/combobox.html
