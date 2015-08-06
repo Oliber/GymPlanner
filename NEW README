@@ -6,4 +6,7 @@ GUI PANELS AND COMPOSING IT INTO A STRUCTURED TEXT FILE
 FILES SO FAR, 
 
 MainFrameExe - Handles getting information from the GUIs with a simple intro panel
-
+  Resources :
+    Bill, StackOverFlow, http://stackoverflow.com/questions/9397480/java-swing-application-how-to-get-data-from-the-gui-thread-to-another-thread
+    Oracle Docs, http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/BlockingQueue.html
+    Jakob Jenkov, BlockingQueue, http://tutorials.jenkov.com/java-util-concurrent/blockingqueue.html
