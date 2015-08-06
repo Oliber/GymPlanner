@@ -1,0 +1,85 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+
+public class Planner extends JPanel {
+	private static JFrame frame;
+	private String name;
+	
+	public Planner() {
+		this.setLayout(new GridBagLayout());
+		this.setBackground(Color.CYAN);
+		
+		GridBagConstraints con = new GridBagConstraints();
+		con.insets = new Insets(10, 10, 10, 10);
+		
+		JLabel intro = new JLabel("Welcome to your customizable Gym Planner");
+		JLabel nameThisFile = new JLabel("Please enter a name for this file.");
+		
+		// Button to progress, wont show itself until suitable response given
+		JButton next = new JButton("Next");
+		next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(name.length() > 0) {
+					frame.setContentPane(new MusclePanel(frame, name));
+					frame.pack();
+				}
+			}
+		});
+		
+		JTextField response = new JTextField(6);
+		response.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String input = response.getText();
+				if(input.length() > 0) {
+					name = input;
+				}else {
+					intro.setText("Please enter a text file name to save to");
+				}
+			}
+		});
+		
+		con.gridx = 0;
+		con.gridy = 0;
+		this.add(intro, con);
+		con.gridx = 0;
+		con.gridy = 1;
+		this.add(nameThisFile, con);
+		con.gridx = 2;
+		con.gridy = 1;
+		this.add(response, con);
+		con.gridx = 0;
+		con.gridy = 3;
+		this.add(next, con);
+	}
+	
+	public void create() {
+		int defaultSize = 300;
+		this.create(defaultSize, defaultSize);
+	}
+	
+	
+	public void create(int width, int height) {
+		frame = new JFrame("Planner");
+		frame.setSize(width, height);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.add(this);
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
+	// Only checks the value at index 0, ignores what follows.
+	public boolean isInteger(String s) {
+		if (s.length() == 0) {
+			return false;
+		}else {
+			return (s.charAt(0) <= '9' && s.charAt(0) >= '1');
+		}
+	}
+	
+	public static void main(String[] args) {
+		Planner test = new Planner();
+		test.create();
+		
+	}
+}
