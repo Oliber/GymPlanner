@@ -1,0 +1,78 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.io.*;
+
+
+public class MusclePanel extends JPanel {
+	public class DifficultyNodes {
+		private String name;
+		private String repSet;
+		
+		public DifficultyNodes(String name, String repSet) {
+			this.name = name;
+			this.repSet = repSet;
+		}
+		
+		public String toString() {
+			return this.name;
+		}
+		
+		public String getRep() {
+			return this.repSet;
+		}
+	}
+	public MusclePanel(JFrame frame, String nameOfFile) {
+		this.setLayout(new GridBagLayout());
+		this.setSize(300,  200);
+		this.setBackground(Color.CYAN);
+		GridBagConstraints con = new GridBagConstraints();
+		con.insets = new Insets(10, 10, 10, 10);
+		
+		
+		JLabel difficulty = new JLabel("Type of Training");
+		JButton next = new JButton("Next");
+		next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)  {
+				try {
+					frame.setContentPane(new ExercisePanel(nameOfFile));
+					frame.pack();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		DifficultyNodes[] choices = {new DifficultyNodes("Endurance", "12 x 10 x 8 20 second rest"), 
+															  new DifficultyNodes("Strength", "5 x 5 x 5 2 minute rest"),
+															  new DifficultyNodes("Hybrid", "8 x 8 x 8 40 second rest")};
+		JComboBox<DifficultyNodes> list = new JComboBox<DifficultyNodes>(choices);
+
+		
+		con.gridx = 0;
+		con.gridy = 1;
+		this.add(difficulty, con);
+		con.gridx = 1;
+		con.gridy = 1;
+		this.add(list, con);
+		con.gridx = 0;
+		con.gridy = 2;
+		con.gridwidth = 2;
+		this.add(next, con);
+		
+	}
+	
+	public void create() {
+		JFrame frame = new JFrame("Page 2");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.add(this);
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		MusclePanel test = new MusclePanel(new JFrame(), "Test");
+		test.create();
+	}
+}
