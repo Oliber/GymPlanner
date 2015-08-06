@@ -1,0 +1,74 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.util.concurrent.*;
+
+public class MainFrameExe {
+	public static final BlockingQueue<String> queue = new PriorityBlockingQueue<String>();
+	public static String name = "";
+	public static final JFrame frame = new JFrame("Gym Planner");
+	public static void main(String[] args) {
+		
+		// Initialize the Main Frame
+		System.out.println("Initializing the Main Frame");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(200, 100);
+		
+		// Set up components used for getting the name for the file
+		System.out.println("Setting up the intro panel");
+		System.out.println("Empty Name " + name);
+		frame.add(intro());
+		frame.setVisible(true);
+		try {
+			name = queue.take();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Testing BlockingQueue " + name);
+		File saveTo = new File(name);
+		
+		// From here, continue to utilize Blocking Queue to grab data
+		// from various panels to save to File OR save as you go using
+		// PrintStream.
+	}
+	
+	public static JPanel intro() {
+		// Initializing the Panel
+		JPanel intro = new JPanel(new GridBagLayout());
+		GridBagConstraints con = new GridBagConstraints();
+		con.insets = new Insets(10, 10, 10, 10);
+		
+		// Initializing the Components
+		JLabel introText = new JLabel("Welcome to your customizable Gym Planner");
+		JLabel nameThisFile = new JLabel("Please enter a name for this file.");
+		JTextField response = new JTextField(6);
+		response.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String look = response.getText();
+				if(look.length() > 0) {
+					// After the TextField gets a proper String, give it to the queue 
+					// and close this window
+					queue.offer(look);
+					frame.dispose();
+				}
+			}
+		});
+		
+		// Adding Components to the Panel
+		con.gridx = 0;
+		con.gridy = 0;
+		con.gridwidth = 2;
+		intro.add(introText, con);
+		con.gridx = 0;
+		con.gridy = 1;
+		con.gridwidth = 1;
+		intro.add(nameThisFile, con);
+		con.gridx = 1;
+		con.gridy = 1;
+		intro.add(response, con);
+		
+		return intro;
+	}
+}
